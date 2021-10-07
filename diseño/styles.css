@@ -14,7 +14,6 @@
  .rosco-main-text {
      width: 30rem;
      height: 10rem;
-
      text-align: center;
      margin: auto;
      padding-top: 2rem;
@@ -180,6 +179,7 @@
 .item--pasapalabra{
     background-image: radial-gradient(circle, #FFC60C, #C79B0B);
 }
+/* contenedor del juego */
  .game-container {
      width: 60%;
      height: 100%;

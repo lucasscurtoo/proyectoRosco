@@ -25,20 +25,21 @@ function checkAnswer(position){
     }else{
 		words[position].correct = false;
 		//aca le agregamos item--failure a la class para que cambie su estilo
-		const itemSuccess = document.querySelectorAll(".circle .item")[position];
-			itemSuccess.classList.add("item--failure")
+		const itemFailure = document.querySelectorAll(".circle .item")[position];
+			itemFailure.classList.add("item--failure")
 	}
 	return count++;
 }
 function pasapalabra(position) {
-	var w = words.splice(position, 1)[0];
+	var w = words.splice(position, 1)[position];
 	words.push(w);
-	const itemSuccess = document.querySelectorAll(".circle .item")[position];
-			itemSuccess.classList.add("item--pasapalabra")
+	const itemPasapalabra = document.querySelectorAll(".circle .item")[position];
+			itemPasapalabra.classList.add("item--pasapalabra");
+			console.log(w)
+			return count++;
 }
 function sendPasapalabra() {
 	pasapalabra(count);
-	console.log(pasapalabra(count))
 }
 function sendAnswer() {
 	checkAnswer(count)
