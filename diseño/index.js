@@ -12,12 +12,11 @@ function Word(idNumber, letter, hint, definition, word, correct) {
 	this.correct = null;
 }
 count = 0;
-// showDefinition((position) =>{	
-// })
+let remainingWords = 25;
 //funcion que checkea si la respuesta del usuario esta bien
 function checkAnswer(position){
-    let userAnswer = document.getElementById("answer").value;
-    if (userAnswer == words[position].word) {
+    let userAnswer = document.getElementById("answer").value.toLowerCase();
+    if (userAnswer == words[position].word.toLowerCase()) {
 			words[position].correct = true;
 			//aca le agregamos item--success a la class para que cambie su estilo
 			const itemSuccess = document.querySelectorAll(".circle .item")[position];
@@ -28,23 +27,48 @@ function checkAnswer(position){
 		const itemFailure = document.querySelectorAll(".circle .item")[position];
 			itemFailure.classList.add("item--failure")
 	}
+	remainingWords --;
 	return count++;
 }
 function pasapalabra(position) {
-	var w = words.splice(position, 1)[position];
+	var w = words.splice(position, 1)[0];
 	words.push(w);
 	const itemPasapalabra = document.querySelectorAll(".circle .item")[position];
 			itemPasapalabra.classList.add("item--pasapalabra");
 			console.log(w)
-			return count++;
 }
 function sendPasapalabra() {
 	pasapalabra(count);
 }
 function sendAnswer() {
 	checkAnswer(count)
-	console.log(words[0].correct)
+	play()
+}
+function showText(position) {
+	const hintHtml = document.querySelector(".hint")
+	hintHtml.innerHTML = (`<h1>${words[position].hint}</h1>`);
+	const definitionHtml = document.querySelector(".definition")
+	definitionHtml.innerHTML = (`<p>${words[position].definition}</p>`);
+}
+function play() {
+	if (count != 25) {
+		let userAnswer = document.getElementById("answer").value = ("")
+		showText(count);
+	} else {
+		endGame() //como en avengers
+	}
+}
+console.log(showText(count))
+function register() {
+ 	const signIn =  document.getElementsByClassName("sign-in")[0]
+	 signIn.classList.add("hidden")
+	 const signUp = document.getElementsByClassName("sign-up")[0]
+	 signUp.classList.remove("hidden")
+	 console.log(signIn)
 }
 
-
-console.log(words[count].hint)
+//popover boostrap
+var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+  return new bootstrap.Popover(popoverTriggerEl)
+})
