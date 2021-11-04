@@ -1,5 +1,10 @@
 const userNick = 'lucas';
 const userPass = '12345'
+let count = 0;
+let remainingWords = 25;
+let timer = 150;
+let correctWords = 0;
+
 function checkUser() {
 	const inputUserNick = document.getElementById("nickname").value;
 	const inputUserPass = document.getElementById("pass").value;
@@ -12,26 +17,30 @@ function checkUser() {
 		showPreGame.classList.remove("hidden");
 	}
 }
+
 function startGame() {
 	const hidePreGame = document.getElementsByClassName("pregame")[0]
 	hidePreGame.classList.add("hidden")
 	const showGame = document.getElementsByClassName("game-container")[0]
 	showGame.classList.remove("hidden");
 	countdown()
+	
 }
+
 function register() {
-	const signIn =  document.getElementsByClassName("sign-in")[0]
+	const signIn = document.getElementsByClassName("sign-in")[0]
 	signIn.classList.add("hidden")
 	const signUp = document.getElementsByClassName("sign-up")[0]
 	signUp.classList.remove("hidden")
-   
+
 }
+
 function login() {
-   const signIn =  document.getElementsByClassName("sign-in")[0]
+	const signIn = document.getElementsByClassName("sign-in")[0]
 	signIn.classList.remove("hidden")
 	const signUp = document.getElementsByClassName("sign-up")[0]
 	signUp.classList.add("hidden")
-   
+
 }
 //game
 var words = [
@@ -39,6 +48,7 @@ var words = [
 	new Word(1, "B", "Empieza por B:", " Pasta dulce y esponjosa, hecha con harina, huevos, levadura y otros ingredientes, que puede tener distintas formas", "Bollo"),
 	new Word(2, "C", "Empieza por C:", " Corriente de agua que cae desde cierta altura a causa de un brusco desnivel en su cauce, especialmente en un rio", "Cascada")
 ];
+
 function Word(idNumber, letter, hint, definition, word, correct) {
 	this.idNumber = idNumber;
 	this.letter = letter;
@@ -47,81 +57,108 @@ function Word(idNumber, letter, hint, definition, word, correct) {
 	this.word = word;
 	this.correct = null;
 }
-count = 0;
-let remainingWords = 25;
-let correctWords = 0;
-//funcion que checkea si la respuesta del usuario esta bien
-function checkAnswer(position){
-    let userAnswer = document.getElementById("answer").value.toLowerCase();
-    if (userAnswer == words[position].word.toLowerCase()) {
-			words[position].correct = true;
-			//aca le agregamos item--success a la class para que cambie su estilo
-			const itemSuccess = document.querySelectorAll(".circle .item")[position];
-			itemSuccess.classList.add("item--success");
-			correctWords ++;
-    }else{
-		words[position].correct = false;
-		//aca le agregamos item--failure a la class para que cambie su estilo
-		const itemFailure = document.querySelectorAll(".circle .item")[position];
-			itemFailure.classList.add("item--failure")
-	}
-	remainingWords --;
-	return count++;
-}
 
-function pasapalabra(position) {
-	var w = words.splice(position, 1)[0];
+//funcion que checkea si la respuesta del usuario esta bien
+function checkAnswer() {
+	let userAnswer = document.getElementById("answer").value.toLowerCase();
+	if (userAnswer == words[count].word.toLowerCase()) {
+		words[count].correct = true;
+		//aca le agregamos item--success a la class para que cambie su estilo
+		const itemSuccess = document.querySelectorAll(".circle .item")[count];
+		itemSuccess.classList.add("item--success");
+		correctWords ++;
+	} else {
+		words[count].correct = false;
+		//aca le agregamos item--failure a la class para que cambie su estilo
+		const itemFailure = document.querySelectorAll(".circle .item")[count];
+		itemFailure.classList.add("item--failure")
+	}
+	remainingWords--;
+	 count++;
+}
+function pasapalabra() {
+	var w = words.indexOf(count);
 	words.push(w);
-	const itemPasapalabra = document.querySelectorAll(".circle .item")[position];
-			itemPasapalabra.classList.add("item--pasapalabra");
+	const itemPasapalabra = document.querySelectorAll(".circle .item")[count];
+	itemPasapalabra.classList.add("item--pasapalabra");
+	count++;
+	console.log(count)
 }
 
 function sendPasapalabra() {
-	pasapalabra(count);
+	pasapalabra();
 	play()
 }
+
 function sendAnswer() {
-	checkAnswer(count)
+	checkAnswer()
 	play()
 }
-function showText(position) {
+
+function showText() {
 	const hintHtml = document.querySelector(".hint")
-	hintHtml.innerHTML = (`<h1>${words[position].hint}</h1>`);
+	hintHtml.innerHTML = (`<h1>${words[count].hint}</h1>`);
 	const definitionHtml = document.querySelector(".definition")
-	definitionHtml.innerHTML = (`<p>${words[position].definition}</p>`);
+	definitionHtml.innerHTML = (`<p>${words[count].definition}</p>`);
 }
-showText(count)
+showText()
+
 function play() {
 	if (count != 25) {
 		let userAnswer = document.getElementById("answer").value = ("")
-		showText(count);
+		showText();
 	} else {
 		endGame() //como en avengers
 	}
-	
 }
-function endGame() {
 
+function endGame() {
+	const hiddeGame = document.getElementsByClassName("game-container")[0]
+	hiddeGame.classList.add("hidden");
+	const hiddeRosco = document.getElementsByClassName("circle-container")[0]
+	hiddeRosco.classList.add("hidden");
+	const showEndgame = document.querySelector(".endgame")
+	showEndgame.classList.remove("hidden");
+	for (let index = 0; index < 3; index++) {
+		return showEndgame.innerHTML = (`<h1>Fin del Juego </h1>
+		<p>Usted acerto: ${correctWords} palabras</p>
+		<button id="playAgain" onclick="playAgain()">Jugar de nuevo</button>`);
+	}
 }
-let timer = 150;
-let temp;
 
 function countdown() {
-	const timerHTML = document.querySelector('.countdown');
-	 timerHTML.innerHTML = (`<p>Tiempo: ${timer}s</p>`)
-	 if (timer == 0) {
-		 console.log('termine pa')
-		 endGame()
-	 }
-	timer --;
-	console.log(timer)
 	timeout = setTimeout(countdown, 1000)
-	
+	const timerHTML = document.querySelector('.countdown');
+	timerHTML.innerHTML = (`<p>Tiempo: ${timer}s</p>
+	<p>Faltan: ${remainingWords} palabras</p>`)
+	timer--;
+	if (timer == 0) {
+		console.log('termine pa')
+		endGame()
+		clearTimeout(timeout)
+	}
 }
 
+function playAgain() {
+	const hiddeGame = document.getElementsByClassName("pregame")[0]
+	hiddeGame.classList.remove("hidden");
+	const hiddeRosco = document.getElementsByClassName("circle-container")[0]
+	hiddeRosco.classList.remove("hidden");
+	const showEndgame = document.querySelector(".endgame")
+	showEndgame.classList.add("hidden");
+	timer = 150;
+	remainingWords = 25;
+	count = 0;
+	for (let index = 0; index <= 25; index++) {
+		const itemReset = document.querySelectorAll(".circle .item")[index];
+		itemReset.classList.toggle("item");
+	}
+	const timerHTML = document.querySelector('.countdown');
+	timerHTML.innerHTML = (`<p>Tiempo: ${timer}s</p>`)
+}
 
 //popover boostrap
 var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
 var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-  return new bootstrap.Popover(popoverTriggerEl)
+	return new bootstrap.Popover(popoverTriggerEl)
 })

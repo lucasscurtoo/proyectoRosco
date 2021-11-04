@@ -6,6 +6,7 @@
  .rosco-background {
      width: 100vw;
      height: 100vh;
+     min-height:600px;
      background-image: url('fondoRoscoPasapalabra.jpeg');
      background-position: top;
      background-repeat: no-repeat;
@@ -386,6 +387,25 @@ align-items: center;
      width: 25%;
     height: 15%;
     background-color: pink;
+ }
+ /* fin del juego */
+ .endgame{
+     width: 40%;
+     height: 80%;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+ }
+ #playAgain{
+     color: #626262;
+     background-color: #fff;
+     width: fit-content;
+     padding: 1vh 0.5vw;
+     border-radius: 25px;
+     border: solid 1px #fff;
+ }
+ #playAgain:hover{
+    background-color:rgb(232, 232, 232);
  }
  .hidden{
     display: none;
