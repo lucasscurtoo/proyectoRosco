@@ -4,6 +4,7 @@ let count = 0;
 let remainingWords = 25;
 let timer = 150;
 let correctWords = 0;
+let palabra;
 
 function checkUser() {
 	const inputUserNick = document.getElementById("nickname").value;
@@ -24,7 +25,7 @@ function startGame() {
 	const showGame = document.getElementsByClassName("game-container")[0]
 	showGame.classList.remove("hidden");
 	countdown()
-	
+	play()
 }
 
 function register() {
@@ -49,13 +50,18 @@ var words = [
 	new Word(2, "C", "Empieza por C:", " Corriente de agua que cae desde cierta altura a causa de un brusco desnivel en su cauce, especialmente en un rio", "Cascada")
 ];
 
-function Word(idNumber, letter, hint, definition, word, correct) {
+function Word(idNumber, letter, hint, definition, word, correct, pasapalabra) {
 	this.idNumber = idNumber;
 	this.letter = letter;
 	this.hint = hint;
 	this.definition = definition;
 	this.word = word;
 	this.correct = null;
+	this.pasapalabra = false;
+}
+function counter() {
+	count = words[count++].idNumber
+	console.log(count = words[count++].idNumber)
 }
 
 //funcion que checkea si la respuesta del usuario esta bien
@@ -64,35 +70,49 @@ function checkAnswer() {
 	if (userAnswer == words[count].word.toLowerCase()) {
 		words[count].correct = true;
 		//aca le agregamos item--success a la class para que cambie su estilo
+		if (words[count].pasapalabra == true) {
+			const itemChange = document.querySelectorAll(".circle .item")[count];
+			itemChange.classList.replace("item--pasapalabra", "item--success")
+		} else {
 		const itemSuccess = document.querySelectorAll(".circle .item")[count];
 		itemSuccess.classList.add("item--success");
+		}
 		correctWords ++;
 	} else {
 		words[count].correct = false;
 		//aca le agregamos item--failure a la class para que cambie su estilo
-		const itemFailure = document.querySelectorAll(".circle .item")[count];
-		itemFailure.classList.add("item--failure")
+		if (words[count].pasapalabra == true) {
+			const itemChange = document.querySelectorAll(".circle .item")[count];
+			itemChange.classList.replace("item--pasapalabra", "item--failure")
+		} else {
+			const itemFailure = document.querySelectorAll(".circle .item")[count];
+			itemFailure.classList.add("item--failure")
+		}
 	}
 	remainingWords--;
 	 count++;
 }
 function pasapalabra() {
-	var w = words.indexOf(count);
+	var w = words[count];
 	words.push(w);
+	words[count].pasapalabra = true;
 	const itemPasapalabra = document.querySelectorAll(".circle .item")[count];
 	itemPasapalabra.classList.add("item--pasapalabra");
 	count++;
 	console.log(count)
+	console.log(words)
 }
 
 function sendPasapalabra() {
 	pasapalabra();
 	play()
+	counter()
 }
 
 function sendAnswer() {
 	checkAnswer()
 	play()
+	counter()
 }
 
 function showText() {
@@ -101,7 +121,6 @@ function showText() {
 	const definitionHtml = document.querySelector(".definition")
 	definitionHtml.innerHTML = (`<p>${words[count].definition}</p>`);
 }
-showText()
 
 function play() {
 	if (count != 25) {
@@ -111,6 +130,7 @@ function play() {
 		endGame() //como en avengers
 	}
 }
+
 
 function endGame() {
 	const hiddeGame = document.getElementsByClassName("game-container")[0]
@@ -156,7 +176,11 @@ function playAgain() {
 	const timerHTML = document.querySelector('.countdown');
 	timerHTML.innerHTML = (`<p>Tiempo: ${timer}s</p>`)
 }
-
+// document.addEventListener('keypress', function (e) {
+//     if (e.key === 'Enter') {
+//         submitForm();
+//     }
+// });
 //popover boostrap
 var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
 var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
