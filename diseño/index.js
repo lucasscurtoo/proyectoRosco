@@ -176,11 +176,16 @@ function playAgain() {
 	const timerHTML = document.querySelector('.countdown');
 	timerHTML.innerHTML = (`<p>Tiempo: ${timer}s</p>`)
 }
-// document.addEventListener('keypress', function (e) {
-//     if (e.key === 'Enter') {
-//         submitForm();
-//     }
-// });
+document.getElementsByClassName("sign-in")[0].addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+        checkUser();
+    }
+});
+document.getElementsByClassName("game-container")[0].addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+        sendAnswer();
+    }
+});
 //popover boostrap
 var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
 var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {

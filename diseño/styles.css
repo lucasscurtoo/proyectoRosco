@@ -393,7 +393,20 @@ align-items: center;
  .countdown{
      width: 25%;
     height: 15%;
-    background-color: pink;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+ }
+ .countdown p{
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    background-color: #2fbfc9;
+ }
+ .countdown p:first-child{
+     padding: 0.5rem 1rem;
+     border-radius: 5px;
+     background-color: #23CFDA;
  }
  /* fin del juego */
  .endgame{
