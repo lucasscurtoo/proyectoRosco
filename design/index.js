@@ -6,16 +6,12 @@ let timer = 150;
 let correctWords = 0;
 let palabra;
 
+
 function checkUser() {
 	const inputUserNick = document.getElementById("nickname").value;
 	const inputUserPass = document.getElementById("pass").value;
 	if (inputUserNick == userNick && inputUserPass == userPass) {
-		const passingToGame = document.getElementsByClassName("login")[0]
-		passingToGame.classList.add("hidden");
-		const showRosco = document.getElementsByClassName("circle-container")[0]
-		showRosco.classList.remove("hidden");
-		const showPreGame = document.getElementsByClassName("pregame")[0]
-		showPreGame.classList.remove("hidden");
+		window.location.href = "file:///Users/lucascurto/Documents/anima/ROSCO/design/index.html";
 	}
 }
 
@@ -27,6 +23,35 @@ function startGame() {
 	countdown()
 	play()
 }
+function signUpUser() {
+	const inputUserNick = document.getElementById("nameRegis").value;
+	const inputLastName = document.getElementById("lastName").value;
+	const inputCi = document.getElementById("CI").value;
+	const inputMail = document.getElementById("mail").value;
+	const inputPass = document.getElementById("setPass").value;
+	const inputConfirmPass = document.getElementById("confirmPass").value;
+	console.log(inputLastName)
+	if (inputUserNick && inputLastName && inputCi && inputMail && inputPass && inputConfirmPass) {
+		if (inputPass === inputConfirmPass) {
+			const passingToGame = document.getElementsByClassName("login")[0]
+			passingToGame.classList.add("hidden");
+			const showRosco = document.getElementsByClassName("circle-container")[0]
+			showRosco.classList.remove("hidden");
+			const showPreGame = document.getElementsByClassName("pregame")[0]
+			showPreGame.classList.remove("hidden");
+			console.log("hoooolaaaa")
+		}
+		else{
+			const badPass = document.getElementById("badPass")
+			badPass.classList.remove("hidden");
+		}
+	}else{
+		const missingInfo = document.getElementById("missingInfo")
+		missingInfo.classList.remove("hidden");
+	}
+	
+}
+
 
 function register() {
 	const signIn = document.getElementsByClassName("sign-in")[0]
@@ -160,21 +185,7 @@ function countdown() {
 }
 
 function playAgain() {
-	const hiddeGame = document.getElementsByClassName("pregame")[0]
-	hiddeGame.classList.remove("hidden");
-	const hiddeRosco = document.getElementsByClassName("circle-container")[0]
-	hiddeRosco.classList.remove("hidden");
-	const showEndgame = document.querySelector(".endgame")
-	showEndgame.classList.add("hidden");
-	timer = 150;
-	remainingWords = 25;
-	count = 0;
-	for (let index = 0; index <= 25; index++) {
-		const itemReset = document.querySelectorAll(".circle .item")[index];
-		itemReset.classList.toggle("item");
-	}
-	const timerHTML = document.querySelector('.countdown');
-	timerHTML.innerHTML = (`<p>Tiempo: ${timer}s</p>`)
+	location.reload()
 }
 document.getElementsByClassName("sign-in")[0].addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {

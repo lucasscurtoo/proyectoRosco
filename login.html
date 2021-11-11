@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rosco Login</title>
+    <link rel="stylesheet" href="design/styles.css">
+</head>
+<body>
+    <div class="login">
+        <div class="sign-in">
+            <h1>Loguearse</h1>
+            <input id="nickname" type="text" placeholder="Nombre de usuario">
+            <input id="pass" type="password" placeholder="Contraseña">
+                <button id="sign-in-button" onclick="checkUser()">Loguearse</button>
+                <a id="sign-in-a" onclick="register()">¿No tienes cuenta? crea una aqui</a>
+        </div>
+        <div class="sign-up hidden">
+            <h1>Registrarse</h1>
+            <input type="text" id="nameRegis" placeholder="Nombre">
+            <input type="text" id="lastName" placeholder="Apellido">
+            <input type="text" id="CI" placeholder="CI">
+            <input type="text" id="mail" placeholder="Mail">
+            <input type="password" id="setPass" placeholder="Contraseña">
+            <input type="password" id="confirmPass" placeholder="Confirmar contraseña">
+            <button id="sign-up-button" onclick="signUpUser()">Crear Cuenta</button>
+            <a id="sign-up-a" onclick="login()">¿Ya tienes cuenta? logueate</a>
+            <p id="badPass" class="hidden">Las contraseñas no coinciden</p>
+            <p id="missingInfo" class="hidden">Porfavor, rellene todos los campos</p>
+        </div>
+      </div>
+      <script src="design/index.js"></script>
+</body>
+</html>

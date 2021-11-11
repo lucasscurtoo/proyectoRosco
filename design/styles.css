@@ -96,6 +96,7 @@
 #sign-in-a:hover{
     color: rgb(121, 137, 255);
 }
+/* register del juego */
 .sign-up{
 display: flex;
 flex-direction: column;
@@ -130,7 +131,12 @@ align-items: center;
 #sign-up-a:hover{
     color: rgb(121, 137, 255);
 }
-/* register del juego */
+#badPass{
+    color: rgb(208, 45, 45);
+}
+#missingInfo{
+    color: rgb(208, 45, 45);
+}
 
  .circle-container {
      width: 100%;
