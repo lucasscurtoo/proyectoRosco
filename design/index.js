@@ -11,7 +11,7 @@ function checkUser() {
 	const inputUserNick = document.getElementById("nickname").value;
 	const inputUserPass = document.getElementById("pass").value;
 	if (inputUserNick == userNick && inputUserPass == userPass) {
-		window.location.href = "file:///Users/lucascurto/Documents/anima/ROSCO/design/index.html";
+		window.location.href = "design/index.html";
 	}
 }
 
@@ -192,11 +192,12 @@ document.getElementsByClassName("sign-in")[0].addEventListener('keypress', funct
         checkUser();
     }
 });
-document.getElementsByClassName("game-container")[0].addEventListener('keypress', function (e) {
+document.getElementsByClassName("sign-up")[0].addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
-        sendAnswer();
+        signUpUser();
     }
 });
+
 //popover boostrap
 var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
 var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
