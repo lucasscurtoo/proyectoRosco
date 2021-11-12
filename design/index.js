@@ -171,7 +171,7 @@ function verifyPasapalabra() {
 	 pas = words.map((e)=> e.pasapalabra);
 	 indexof = pas.indexOf(true);
 }
-//hola mathi soy lucas aca estan las dos lineas que me dan problema
+
 function play() {
 	verifyPasapalabra()
 	if (remainingWords != 0) {
