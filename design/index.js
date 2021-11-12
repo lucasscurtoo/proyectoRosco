@@ -33,13 +33,7 @@ function signUpUser() {
 	console.log(inputLastName)
 	if (inputUserNick && inputLastName && inputCi && inputMail && inputPass && inputConfirmPass) {
 		if (inputPass === inputConfirmPass) {
-			const passingToGame = document.getElementsByClassName("login")[0]
-			passingToGame.classList.add("hidden");
-			const showRosco = document.getElementsByClassName("circle-container")[0]
-			showRosco.classList.remove("hidden");
-			const showPreGame = document.getElementsByClassName("pregame")[0]
-			showPreGame.classList.remove("hidden");
-			console.log("hoooolaaaa")
+			window.location.href = "design/index.html";
 		}
 		else{
 			const badPass = document.getElementById("badPass")
@@ -161,6 +155,7 @@ function sendPasapalabra() {
 
 function sendAnswer() {
 	checkAnswer()
+	play()
 	counter()
 	play()
 }
@@ -177,7 +172,7 @@ function verifyPasapalabra() {
 	 pas = words.map((e)=> e.pasapalabra);
 	 indexof = pas.indexOf(true);
 }
-
+//hola mathi soy lucas aca estan las dos lineas que me dan problema
 function play() {
 	verifyPasapalabra()
 	if (remainingWords != 0) {
@@ -219,16 +214,7 @@ function countdown() {
 function playAgain() {
 	location.reload()
 }
-// document.getElementsByClassName("sign-in")[0].addEventListener('keypress', function (e) {
-//     if (e.key === 'Enter') {
-//         checkUser();
-//     }
-// });
-// document.getElementsByClassName("sign-up")[0].addEventListener('keypress', function (e) {
-//     if (e.key === 'Enter') {
-//         signUpUser();
-//     }
-// });
+
 
 //popover boostrap
 var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))

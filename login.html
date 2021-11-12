@@ -35,7 +35,16 @@
         </div>
     </div>
     <script src="design/index.js"></script>
-    
+    <script>document.getElementsByClassName("sign-in")[0].addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            checkUser();
+        }
+    });
+    document.getElementsByClassName("sign-up")[0].addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            signUpUser();
+        }
+    });</script>
 </body>
 
 </html>
