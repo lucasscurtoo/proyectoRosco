@@ -4,7 +4,7 @@ let count = 0;
 let remainingWords = 25;
 let timer = 150;
 let correctWords = 0;
-let palabra;
+let pascount = 0;
 
 
 function checkUser() {
@@ -69,24 +69,47 @@ function login() {
 
 }
 //game
-var words = [
-	new Word(0, "A", "Empieza por A:", " Relato breve de un acontecimiento extraño, curioso o divertido, generalmente ocurrido a la persona que lo cuenta.", "Anecdota"),
-	new Word(1, "B", "Empieza por B:", " Pasta dulce y esponjosa, hecha con harina, huevos, levadura y otros ingredientes, que puede tener distintas formas", "Bollo"),
-	new Word(2, "C", "Empieza por C:", " Corriente de agua que cae desde cierta altura a causa de un brusco desnivel en su cauce, especialmente en un rio", "Cascada")
-];
 
-function Word(idNumber, letter, hint, definition, word, correct, pasapalabra) {
+var words = [
+	new Word(0, "A", "Empieza por A:", "lugar en memoria donde se guarda la informacion", "almacenamiento"),
+	new Word(1, "B", "Contiene B:", "rango de direcciones ip lógicas de una misma red", "subredes"),
+	new Word(2, "C", "Empieza por C:", "interfaz en blanco y negro que se usa para ver informacion", "consola"),
+	new Word(3, "D", "Empieza por D", "sistema operativo basado en linux", "debian"),
+	new Word(4, "E", "Empieza por E", "cable que usamos para conectar el router a la computadora", "ethernet"),
+	new Word(5, "F", "Empieza por F", "sistema que prevé ataques de red en nuestro equipo", "firewall"),
+	new Word(6, "G", "Contiene G", "parte... de una computadora", "logica"),
+	new Word(7, "H", "Empieza por H", "partes fisicas de una computador", "hardware"),
+	new Word(8, "I", "Empieza por I", "siglas de internet de las cosas en inglés", "iot"),
+	new Word(9, "J", "Contiene J", "hay que … comandos en las terminales", "ejecutar"),
+	new Word(10, "L", "Empieza por L", "comando para ver el contenido de la carpeta en el que estamos parados", "ls"),
+	new Word(11, "M", "Empieza por M", "distribucion de linux que es conocido por ser elegante y moderno", "mint"),
+	new Word(12, "N", "Contiene N", "sistema operativo que se puede usar como base para crear otros sitemas operativos", "linux"),
+	new Word(13, "Ñ", "Contiene Ñ", "la memoria l1 del cache es la mas... de todas", "pequeña"),
+	new Word(14, "O", "Empieza por O", "modelo de capa …. es el modelo de referencia de las capas de red", "osi"),
+	new Word(15, "P", "Empieza por P", "es la unidad central de procesamiento de datos", "procesador"),
+	new Word(16, "Q", "Contiene Q", "...de red, es el conjunto de informacion que se manda por las redes", "paquete"),
+	new Word(17, "R", "Contiene R", "comando para crear carpetas en linux/ macOS", "mkdir"),
+	new Word(18, "S", "Empieza por S", " ...usuario, el administrador del sistema en bash", "super"),
+	new Word(19, "T", "Empieza por T", "capa de ..., es el 4to nivel del modelo OSI", "transporte"),
+	new Word(20, "U", "Contiene U", "...de programacion", "lenguaje"),
+	new Word(21, "V", "Empieza por V", "...programa que se usa para hacer máquinas virtuales", "virtualbox"),
+	new Word(22, "X", "Contiene X", "tipo de circuito logico que sirve para combinar muchas entradas en una salida", "multiplexor"),
+	new Word(23, "Y", "Contiene Y", "8 bits componen un...", "byte"),
+	new Word(24, "Z", "Contiene Z", "...de usuario, es lo que ve el usuario y con lo que interactua", "interfaz"),
+	
+];
+function Word(idNumber, letter, hint, definition, word, pasapalabra, correct) {
 	this.idNumber = idNumber;
 	this.letter = letter;
 	this.hint = hint;
 	this.definition = definition;
 	this.word = word;
+	this.pasapalabra = pasapalabra;
 	this.correct = null;
-	this.pasapalabra = false;
 }
+
 function counter() {
-	count = words[count++].idNumber
-	console.log(count = words[count++].idNumber)
+	count = words[pascount].idNumber
 }
 
 //funcion que checkea si la respuesta del usuario esta bien
@@ -98,6 +121,7 @@ function checkAnswer() {
 		if (words[count].pasapalabra == true) {
 			const itemChange = document.querySelectorAll(".circle .item")[count];
 			itemChange.classList.replace("item--pasapalabra", "item--success")
+			words[count].pasapalabra = false;
 		} else {
 		const itemSuccess = document.querySelectorAll(".circle .item")[count];
 		itemSuccess.classList.add("item--success");
@@ -109,6 +133,7 @@ function checkAnswer() {
 		if (words[count].pasapalabra == true) {
 			const itemChange = document.querySelectorAll(".circle .item")[count];
 			itemChange.classList.replace("item--pasapalabra", "item--failure")
+			words[count].pasapalabra = false;
 		} else {
 			const itemFailure = document.querySelectorAll(".circle .item")[count];
 			itemFailure.classList.add("item--failure")
@@ -116,6 +141,7 @@ function checkAnswer() {
 	}
 	remainingWords--;
 	 count++;
+	 pascount++;
 }
 function pasapalabra() {
 	var w = words[count];
@@ -124,20 +150,19 @@ function pasapalabra() {
 	const itemPasapalabra = document.querySelectorAll(".circle .item")[count];
 	itemPasapalabra.classList.add("item--pasapalabra");
 	count++;
-	console.log(count)
-	console.log(words)
+	pascount++;
 }
 
 function sendPasapalabra() {
 	pasapalabra();
-	play()
 	counter()
+	play()
 }
 
 function sendAnswer() {
 	checkAnswer()
-	play()
 	counter()
+	play()
 }
 
 function showText() {
@@ -146,12 +171,19 @@ function showText() {
 	const definitionHtml = document.querySelector(".definition")
 	definitionHtml.innerHTML = (`<p>${words[count].definition}</p>`);
 }
+let pas;
+let indexof;
+function verifyPasapalabra() {
+	 pas = words.map((e)=> e.pasapalabra);
+	 indexof = pas.indexOf(true);
+}
 
 function play() {
-	if (count != 25) {
+	verifyPasapalabra()
+	if (remainingWords != 0) {
 		let userAnswer = document.getElementById("answer").value = ("")
 		showText();
-	} else {
+	}else{
 		endGame() //como en avengers
 	}
 }
@@ -187,16 +219,16 @@ function countdown() {
 function playAgain() {
 	location.reload()
 }
-document.getElementsByClassName("sign-in")[0].addEventListener('keypress', function (e) {
-    if (e.key === 'Enter') {
-        checkUser();
-    }
-});
-document.getElementsByClassName("sign-up")[0].addEventListener('keypress', function (e) {
-    if (e.key === 'Enter') {
-        signUpUser();
-    }
-});
+// document.getElementsByClassName("sign-in")[0].addEventListener('keypress', function (e) {
+//     if (e.key === 'Enter') {
+//         checkUser();
+//     }
+// });
+// document.getElementsByClassName("sign-up")[0].addEventListener('keypress', function (e) {
+//     if (e.key === 'Enter') {
+//         signUpUser();
+//     }
+// });
 
 //popover boostrap
 var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
