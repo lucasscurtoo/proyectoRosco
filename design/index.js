@@ -30,7 +30,6 @@ function signUpUser() {
 	const inputMail = document.getElementById("mail").value;
 	const inputPass = document.getElementById("setPass").value;
 	const inputConfirmPass = document.getElementById("confirmPass").value;
-	console.log(inputLastName)
 	if (inputUserNick && inputLastName && inputCi && inputMail && inputPass && inputConfirmPass) {
 		if (inputPass === inputConfirmPass) {
 			window.location.href = "design/index.html";
@@ -205,7 +204,6 @@ function countdown() {
 	<p>Faltan: ${remainingWords} palabras</p>`)
 	timer--;
 	if (timer == 0) {
-		console.log('termine pa')
 		endGame()
 		clearTimeout(timeout)
 	}
