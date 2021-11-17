@@ -22,24 +22,7 @@
             <h2>pasapalabra</h2>
         </div>
         <div class="principal-container">
-            <div class="login">
-                <div class="sign-in">
-                    <h1>Loguearse</h1>
-                    <input id="nickname" type="text" placeholder="Nombre de usuario">
-                    <input id="pass" type="password" placeholder="Contraseña">
-                        <button id="sign-in-button" onclick="checkUser()">Loguearse</button>
-                        <a id="sign-in-a" onclick="register()">¿No tienes cuenta? crea una aqui</a>
-                </div>
-                <div class="sign-up hidden">
-                    <h1>Registrarse</h1>
-                    <input type="text" placeholder="Nombre de usuario">
-                    <input type="password" placeholder="Contraseña">
-                    <input type="password" placeholder="Confirmar contraseña">
-                    <button id="sign-up-button">Crear Cuenta</button>
-                    <a id="sign-up-a" onclick="login()">¿Ya tienes cuenta? logueate</a>
-                </div>
-              </div>
-            <div class="circle-container hidden">
+            <div class="circle-container ">
                 <ul class="circle">
                     <li class="item">A</li>
                     <li class="item">B</li>
@@ -68,16 +51,16 @@
                     <li class="item">Z</li>
                 </ul>
                 <div class="countdown">
-                    <p id="timer"> Tiempo: 150s</p>
-                    <p id="score"></p>
+                    <p> Tiempo: 150s</p>
+                    <p> Faltan: 25 palabras</p>
                 </div>
-                <div class="pregame hidden">
-                    <h1>Bienvenido al imalaia</h1>
+                <div class="pregame ">
+                    <h1>Bienvenido al rosco de pasapalabra</h1>
                     <button id="play" onclick="startGame()">Jugar!</button>
-                    <a tabindex="0" 
-                    class="popver" 
-                    role="button" 
-                    data-bs-toggle="popover" 
+                    <a tabindex="0"
+                    class="popver"
+                    role="button"
+                    data-bs-toggle="popover"
                     data-bs-trigger="focus"
                         data-bs-content="El juego consiste en adivinar la palabra que se esconde detrás de cada letra. La respuesta empezará por la letra correspondiente o bien, contendrá la letra correspondiente. Pulsa “pasapalabra si quieres pasar a la siguiente letra y contestar más adelante. Completa todas las letras para ganar el juego.">Como
                         jugar</a>
@@ -89,17 +72,25 @@
                     </div>
                     <div class="buttons">
                         <input type="text" id="answer" placeholder="escribe aqui">
-                        <button id="send" type="text" onClick="sendAnswer()">enviar</button>
+                        <button id="send" type="submit" onClick="sendAnswer()">enviar</button>
                         <button id="pasapalabra" type="submit" onClick="sendPasapalabra()">pasapalabra</button>
                     </div>
                 </div>
-              
+
+            </div>
+            <div class="endgame hidden">
+
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
         </script>
         <script src="index.js"></script>
+        <script>document.getElementsByClassName("game-container")[0].addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                sendAnswer();
+            }
+        });</script>
     </main>
 </body>
 
